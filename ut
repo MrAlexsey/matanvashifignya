@@ -1,0 +1,25 @@
+  program main;
+
+{$APPTYPE CONSOLE}
+
+
+
+
+
+uses
+  SysUtils,
+  math,
+  Unit1 in 'Unit1.pas',
+  Unit2 in 'Unit2.pas';
+
+var a,b,eps:real;
+begin
+writeln('POGR');
+readln(eps);
+writeln('otrezok');
+readln(a);
+readln(b);
+kor(a,b,eps,f1);
+root(a,b,eps,f0);
+readln;
+end.
