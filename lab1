@@ -1,0 +1,85 @@
+  program main;
+uses
+  SysUtils,
+  math,
+  Unit1 in 'Unit1.pas',
+  Unit2 in 'Unit2.pas';
+
+var a,b,eps:real;
+begin
+writeln('POGR');
+readln(eps);
+writeln('otrezok');
+readln(a);
+readln(b);
+kor(a,b,eps,f1);
+root(a,b,eps,f0);
+readln;
+end.
+
+
+
+
+unit Unit1;
+
+interface
+
+type  fun=function(x:real):real;
+function  f1(x:real):real;
+procedure kor(a,b,eps:real; f:fun);
+
+implementation 
+  function f1(x:real):real;
+  begin
+    f1:=sqr(x)-sin(x)
+  end;
+  
+  procedure kor(a,b,eps:real; f:fun);
+    var  xnew, xold:real;
+  begin
+    repeat  xold:=(a+b)/2;
+      if f(a)*f((a+b)/2) < 0 then
+       b:=(a+b)/2
+       else a:=(a+b)/2;
+       xnew:=(a+b)/2;     
+    until abs(xnew-xold)<eps;
+    writeln('1:',xnew:8:5)
+  end;
+end.
+
+
+
+
+
+unit Unit2;
+
+interface 
+
+type  fun=function(x:real):real;
+function  f0(x:real):real;
+procedure root(a,b,eps:real; f0:fun);
+
+implementation 
+  function f0(x:real):real;
+  begin
+    f0:=sqr(x)-sin(x)
+  end;
+  
+  procedure root(a,b,eps:real; f0:fun); 
+var newroot,oldroot:real; 
+function g(z,y:real):real; 
+begin 
+g:=z-f0(z)*(z-y)/(f0(z)-f0(y)); 
+end; 
+begin 
+repeat 
+oldroot:=g(a,b); 
+if f0(a)*f0(oldroot)<0 then b:=oldroot else a:=oldroot; 
+newroot:=g(a,b); 
+ 
+until abs(newroot-oldroot)<eps;
+
+writeln('2:',newroot:8:5);
+end;
+end.
+
